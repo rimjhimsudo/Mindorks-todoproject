@@ -9,16 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
 
 public class MyNotesActivity extends AppCompatActivity {
     String fullname;
     FloatingActionButton btn_float;
+    TextView viewtitle , viewdesc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_notes);
+        viewtitle=findViewById(R.id.
+        viewdesc=findViewById(R.id.
         btn_float=findViewById(R.id.float_btn);
         Intent intent=getIntent();
         fullname= intent.getStringExtra("fullname");
