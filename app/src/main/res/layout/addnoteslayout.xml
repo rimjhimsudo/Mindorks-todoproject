@@ -61,21 +61,18 @@
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textLongMessage"/>
+            android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_submtnote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=" SUBMIT"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cornerRadius="10dp"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/descInputLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="30dp"
+        android:layout_margin="5dp"
         />
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
