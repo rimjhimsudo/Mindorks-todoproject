@@ -23,8 +23,8 @@ public class MyNotesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_notes);
-        viewtitle=findViewById(R.id.
-        viewdesc=findViewById(R.id.
+        viewtitle=findViewById(R.id.tv_vtitle);
+        viewdesc=findViewById(R.id.tv_cdesc);
         btn_float=findViewById(R.id.float_btn);
         Intent intent=getIntent();
         fullname= intent.getStringExtra("fullname");
@@ -43,10 +43,23 @@ public class MyNotesActivity extends AppCompatActivity {
     private void setupdialogbox(){
         View view= LayoutInflater.from(MyNotesActivity.this).inflate(R.layout.addnoteslayout,null);
         EditText editTextTtle=view.findViewById(R.id.et_title);
+        final String ttle=editTextTtle.getText().toString();
         EditText editTextdesc=view.findViewById(R.id.et_desc);
+        final String desc=editTextdesc.getText().toString();
         Button btn_submt=view.findViewById(R.id.btn_submtnote);
-        AlertDialog dialog=new AlertDialog.Builder(this).setView(view).setCancelable(false).create();
+        final AlertDialog dialog=new AlertDialog.Builder(this).setView(view).setCancelable(false).create();
         dialog.show();
+        btn_submt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                viewtitle.setText(ttle);
+                viewdesc.setText(desc);
+                dialog.hide();
+            }
+        });
+
+
 
     }
 }
