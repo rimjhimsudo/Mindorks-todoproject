@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -26,8 +27,7 @@ public class MyNotesActivity extends AppCompatActivity {
         viewtitle=findViewById(R.id.tv_vtitle);
         viewdesc=findViewById(R.id.tv_cdesc);
         btn_float=findViewById(R.id.float_btn);
-        Intent intent=getIntent();
-        fullname= intent.getStringExtra("fullname");
+        getIntentdata();
         //acton bar
         getSupportActionBar().setTitle(fullname);
         //floatng button
@@ -42,24 +42,34 @@ public class MyNotesActivity extends AppCompatActivity {
 
     private void setupdialogbox(){
         View view= LayoutInflater.from(MyNotesActivity.this).inflate(R.layout.addnoteslayout,null);
-        EditText editTextTtle=view.findViewById(R.id.et_title);
-        final String ttle=editTextTtle.getText().toString();
-        EditText editTextdesc=view.findViewById(R.id.et_desc);
-        final String desc=editTextdesc.getText().toString();
+        final EditText editTextTtle=view.findViewById(R.id.et_title);
+
+        final EditText editTextdesc=view.findViewById(R.id.et_desc);
+
         Button btn_submt=view.findViewById(R.id.btn_submtnote);
-        final AlertDialog dialog=new AlertDialog.Builder(this).setView(view).setCancelable(false).create();
+        final AlertDialog dialog=new AlertDialog.Builder(this)
+                .setView(view)
+                .setCancelable(false)
+                .create();
         dialog.show();
         btn_submt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //bahar
+                String ttle=editTextTtle.getText().toString();
+                String desc=editTextdesc.getText().toString();
                 viewtitle.setText(ttle);
                 viewdesc.setText(desc);
+                Log.d("TAG", "values "+ttle+desc);
                 dialog.hide();
             }
         });
 
 
 
+    }
+    public  void getIntentdata(){
+        Intent intent=getIntent();
+        fullname= intent.getStringExtra(AppConstants.FULLNAME);
     }
 }
