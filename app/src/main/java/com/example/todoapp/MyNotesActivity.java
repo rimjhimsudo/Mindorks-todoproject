@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.text.CaseMap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.todoapp.adapter.NotesAdapter;
 import com.example.todoapp.clicklisteners.ItemClickLstener;
@@ -25,6 +27,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+
+import static com.example.todoapp.AppConstants.DESC;
+import static com.example.todoapp.AppConstants.TITLE;
 
 public class MyNotesActivity extends AppCompatActivity {
     String fullname;
@@ -84,10 +89,15 @@ public class MyNotesActivity extends AppCompatActivity {
 
                 String title=editTextTtle.getText().toString();
                 String descptn=editTextdesc.getText().toString();
-                Notes notes=new Notes();
-                notes.setTitle(title);
-                notes.setDesc(descptn);
-                notesArrayList.add(notes);
+                if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(descptn)){
+                    Notes notes=new Notes();
+                    notes.setTitle(title);
+                    notes.setDesc(descptn);
+                    notesArrayList.add(notes);
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "Fields ant be empty",Toast.LENGTH_SHORT).show();
+
                 setRecylervw();
                 Log.d("TAG",""+notesArrayList.size());
                 //viewtitle.setText(ttle);
@@ -111,7 +121,11 @@ public class MyNotesActivity extends AppCompatActivity {
             public void onClick(Notes notes) {
                 Log.d("TAGCLC","clc workkkkkkkkkked");
                 Log.d("TAGDATA","ttlte"+notes.getTitle());
-                
+                Intent intent=new Intent(MyNotesActivity.this, DetailActivity.class);
+                intent.putExtra(TITLE,notes.getTitle());
+                intent.putExtra(DESC,notes.getDesc());
+                startActivity(intent);
+
             }
         };
         notesAdapter= new NotesAdapter(notesArrayList,itemClickLstener);

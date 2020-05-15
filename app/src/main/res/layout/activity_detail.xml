@@ -5,5 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailActivity">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_dttle"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="mndors"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ddesc"
+        android:layout_marginTop="16dp"
+        android:text="wrte soomethng"
+        app:layout_constraintStart_toStartOf="@+id/tv_dttle"
+        app:layout_constraintEnd_toEndOf="@+id/tv_dttle"
+        app:layout_constraintTop_toBottomOf="@+id/tv_dttle"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
