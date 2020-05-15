@@ -18,15 +18,16 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
-    List<Notes> listnotes;
-    ItemClickLstener itemClickLstener;
-    public NotesAdapter(){
-
+    private List<Notes> listnotes;
+    private ItemClickLstener itemClickLstener;
+    public NotesAdapter(List<Notes> list , ItemClickLstener itemClickLstener){
+        this.listnotes=list;
+        this.itemClickLstener=itemClickLstener;
    }
 
-   public void setListnotes(List<Notes> list){
+   /*public void setListnotes(List<Notes> list){
        this.listnotes=list;
-   }
+   }*/
 
     @NonNull
     @Override
@@ -38,13 +39,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
         //we set data from list to layout here
-        Notes notes= listnotes.get(position);
+        final Notes notes= listnotes.get(position);
         String ttle= notes.getTitle();
         String desc=notes.getDesc();
         holder.textView_ttle.setText(ttle);
         Log.d("TAGVAL","ttle"+ttle);
         Log.d("TAGVAL","ttle"+desc);
         holder.textView_desc.setText(desc);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickLstener.onClick(notes);
+            }
+        });
 
     }
 

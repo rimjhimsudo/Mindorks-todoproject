@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.todoapp.adapter.NotesAdapter;
+import com.example.todoapp.clicklisteners.ItemClickLstener;
 import com.example.todoapp.model.Notes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,6 +34,7 @@ public class MyNotesActivity extends AppCompatActivity {
     RecyclerView recyclerViewnotes;
     ArrayList<Notes> notesArrayList=new ArrayList<>();
     private NotesAdapter notesAdapter;
+    ItemClickLstener itemClickLstener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class MyNotesActivity extends AppCompatActivity {
             }
         });
 
-        setRecylervw();
+       // setRecylervw();
 
     }
 
@@ -86,11 +88,12 @@ public class MyNotesActivity extends AppCompatActivity {
                 notes.setTitle(title);
                 notes.setDesc(descptn);
                 notesArrayList.add(notes);
+                setRecylervw();
                 Log.d("TAG",""+notesArrayList.size());
                 //viewtitle.setText(ttle);
                 //viewdesc.setText(desc);
-                notesAdapter.setListnotes(notesArrayList);
-                notesAdapter.notifyDataSetChanged();
+                //notesAdapter.setListnotes(notesArrayList);
+                //notesAdapter.notifyDataSetChanged();
                 Log.d("TAG", "valuesfromdalog "+title+descptn);
                 dialog.hide();
 
@@ -102,7 +105,16 @@ public class MyNotesActivity extends AppCompatActivity {
     }
 
     private void setRecylervw() {
-        notesAdapter= new NotesAdapter();
+        //nterface
+        ItemClickLstener itemClickLstener = new ItemClickLstener() {
+            @Override
+            public void onClick(Notes notes) {
+                Log.d("TAGCLC","clc workkkkkkkkkked");
+                Log.d("TAGDATA","ttlte"+notes.getTitle());
+                
+            }
+        };
+        notesAdapter= new NotesAdapter(notesArrayList,itemClickLstener);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MyNotesActivity.this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerViewnotes.setLayoutManager(linearLayoutManager);
