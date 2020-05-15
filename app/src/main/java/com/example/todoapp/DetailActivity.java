@@ -25,8 +25,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void bindview() {
-        tv_dttle=findViewById(R.id.tv_vttle);
-        tv_ddesc=findViewById(R.id.tv_vdesc);
+        tv_dttle=findViewById(R.id.tv_dttle);
+        tv_ddesc=findViewById(R.id.tv_ddesc);
 
     }
 }
