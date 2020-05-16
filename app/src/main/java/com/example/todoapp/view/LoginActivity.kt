@@ -1,17 +1,19 @@
-package com.example.todoapp
+package com.example.todoapp.view
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.todoapp.PrefConstants.SHARED_PREFERENCE_NAME
+import com.example.todoapp.utils.AppConstants
+import com.example.todoapp.utils.PrefConstants
+import com.example.todoapp.utils.PrefConstants.SHARED_PREFERENCE_NAME
+import com.example.todoapp.R
 
 class LoginActivity : AppCompatActivity() {
     lateinit var et_fullname: EditText

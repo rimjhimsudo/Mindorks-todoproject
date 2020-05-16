@@ -1,10 +1,9 @@
-package com.example.todoapp
+package com.example.todoapp.view
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +15,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapp.AppConstants.DESC
-import com.example.todoapp.AppConstants.TITLE
-import com.example.todoapp.PrefConstants.SHARED_PREFERENCE_NAME
+import com.example.todoapp.utils.AppConstants
+import com.example.todoapp.utils.AppConstants.DESC
+import com.example.todoapp.utils.AppConstants.TITLE
+import com.example.todoapp.utils.PrefConstants
+import com.example.todoapp.utils.PrefConstants.SHARED_PREFERENCE_NAME
+import com.example.todoapp.R
 import com.example.todoapp.adapter.NotesAdapter
 import com.example.todoapp.clicklisteners.ItemClickListener
 import com.example.todoapp.model.Notes

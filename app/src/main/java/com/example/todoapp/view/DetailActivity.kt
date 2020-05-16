@@ -1,10 +1,11 @@
-package com.example.todoapp
+package com.example.todoapp.view
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.todoapp.AppConstants.DESC
-import com.example.todoapp.AppConstants.TITLE
+import com.example.todoapp.utils.AppConstants
+import com.example.todoapp.utils.AppConstants.DESC
+import com.example.todoapp.R
 
 class DetailActivity : AppCompatActivity() {
     lateinit  var tv_dttle: TextView
