@@ -30,6 +30,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 
 class MyNotesActivity : AppCompatActivity() {
+    val ADD_NOTES_CODE=100
     lateinit var fullname: String
     lateinit var btn_float: FloatingActionButton
     lateinit var viewtitle: TextView
@@ -55,7 +56,10 @@ class MyNotesActivity : AppCompatActivity() {
         //floatng button
         btn_float.setOnClickListener(object:View.OnClickListener {
             override fun onClick(v: View?) {
-                setupdialogbox()
+                //setupdialogbox()
+                val intent = Intent(this@MyNotesActivity,AddNotesActivity::class.java)
+                startActivityForResult(intent,ADD_NOTES_CODE)
+
             }
 
         })
