@@ -1,5 +1,6 @@
 package com.example.todoapp.view
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.NotesApp
 import com.example.todoapp.utils.AppConstants
 import com.example.todoapp.utils.AppConstants.DESC
 import com.example.todoapp.utils.AppConstants.TITLE
@@ -23,7 +25,7 @@ import com.example.todoapp.utils.PrefConstants.SHARED_PREFERENCE_NAME
 import com.example.todoapp.R
 import com.example.todoapp.adapter.NotesAdapter
 import com.example.todoapp.clicklisteners.ItemClickListener
-import com.example.todoapp.model.Notes
+import com.example.todoapp.db.Notes
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 
@@ -46,6 +48,8 @@ class MyNotesActivity : AppCompatActivity() {
         setupsharepref()
         bindview()
         getintentdata()
+        setRecylervw()
+        getDatafromDb()
         //acton bar
         supportActionBar?.title = fullname //can take null value tooo now 
         //floatng button
@@ -56,6 +60,14 @@ class MyNotesActivity : AppCompatActivity() {
 
         })
         // setRecylervw();
+    }
+
+    private fun getDatafromDb() {
+        val notesApp=applicationContext as NotesApp
+        val notesDao=notesApp.getNotesDb().notesDao()
+        val  listofNotes=notesDao.getAll()
+        Log.d("TAGNOTES","h"+listofNotes.size)
+        notesArrayList.addAll(listofNotes)
     }
 
     private fun getintentdata() {
@@ -94,17 +106,23 @@ class MyNotesActivity : AppCompatActivity() {
             override fun onClick(v: View?) {
                 //bahar when we r gettng values usng getText, iit is gettng null valye because befor btn.submt t s settng null values in java
                 val title = editTextTtle.text.toString()
-                val descptn = editTextdesc.text.toString()
-                if (title.isNotEmpty() && descptn.isNotEmpty()) {
-                    val notes = Notes(title, descptn) //ths alspoo sets values  both var
+                val desc = editTextdesc.text.toString()
+                if (title.isNotEmpty() && desc.isNotEmpty()) {
+                    val notes = Notes(title=title, desc=desc) //ths alspoo sets values  both var
                     notesArrayList.add(notes)
+                    addNotesToDb(notes)
                 } else Toast.makeText(applicationContext, "Fields ant be empty", Toast.LENGTH_SHORT).show()
-                setRecylervw()
                 Log.d("TAG", "" + notesArrayList.size)
-                Log.d("TAG", "valuesfromdalog $title$descptn")
+                Log.d("TAG", "valuesfromdalog $title$desc")
                 dialog.hide()
             }
         })
+    }
+
+    private fun addNotesToDb(notes: Notes) {
+        val notesApp= applicationContext as NotesApp
+        val notesDao=notesApp.getNotesDb().notesDao()
+        notesDao.insert(notes)
     }
 
     private fun setRecylervw() { //nterface
@@ -117,6 +135,15 @@ class MyNotesActivity : AppCompatActivity() {
                 intent.putExtra(DESC, notes.desc)
                 startActivity(intent)
             }
+
+            override fun onUpdate(notes: Notes) {
+
+                Log.d("TAGonUPDATE",""+notes.isTaskCompleted) //not wrng gettng opposte value
+                val notesApp= applicationContext as NotesApp
+                val notesDao=notesApp.getNotesDb().notesDao()
+                notesDao.updateNotes(notes)
+            }
+
         }
         notesAdapter = NotesAdapter(notesArrayList,itemClickLstener)
         val linearLayoutManager = LinearLayoutManager(this@MyNotesActivity)

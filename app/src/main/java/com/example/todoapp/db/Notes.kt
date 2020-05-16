@@ -10,8 +10,8 @@ import androidx.room.PrimaryKey
     var id:Int?= null,
     @ColumnInfo(name = "title")
     var title:String= "",
-    @ColumnInfo(name = "description")
-    var description:String ="",
+    @ColumnInfo(name = "desc")
+    var desc:String ="",
     @ColumnInfo(name = "imagePath")
     var imagePath:String="",
     @ColumnInfo(name = "isTaskCompleted")

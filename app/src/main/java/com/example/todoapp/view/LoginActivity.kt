@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this@LoginActivity, MyNotesActivity::class.java)
                     intent.putExtra(AppConstants.FULLNAME, fullname)
                     startActivity(intent)
-                    //finish()
+                    finish()
                 } else {
 
                     Toast.makeText(this@LoginActivity, "fullname and username cant be empty", Toast.LENGTH_LONG).show()

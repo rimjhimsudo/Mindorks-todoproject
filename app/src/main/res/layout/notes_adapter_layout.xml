@@ -8,25 +8,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <!--add margns-->
+
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tv_vttle"
             android:text="Complete todoapp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/checbox1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
+            android:textSize="16sp"
             />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tv_vdesc"
             android:text="mportant"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_vttle"
+            app:layout_constraintEnd_toEndOf="@id/tv_vttle"
             app:layout_constraintTop_toBottomOf="@id/tv_vttle"
             app:layout_constraintBottom_toBottomOf="parent"
             />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checbox1"
+            android:layout_marginStart="7dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="7dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_vdesc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_vttle"
+            />
+
 
 
 

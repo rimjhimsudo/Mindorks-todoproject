@@ -4,11 +4,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
 import com.example.todoapp.clicklisteners.ItemClickListener
-import com.example.todoapp.model.Notes
+import com.example.todoapp.db.Notes
 
 class NotesAdapter(val list: List<Notes>, val itemClickListener: ItemClickListener) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
     //private val listnotes: List<Notes>?
@@ -26,12 +28,24 @@ class NotesAdapter(val list: List<Notes>, val itemClickListener: ItemClickListen
         val ttle = notes.title
         val desc = notes.desc
         holder.textView_ttle.text = ttle
+        holder.checkBox.isChecked=notes.isTaskCompleted
+
         Log.d("TAGVAL", "ttle$ttle")
         Log.d("TAGVAL", "ttle$desc")
         holder.textView_desc.text = desc
+
         holder.itemView.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 itemClickListener.OnClick(notes)
+            }
+
+        })
+        holder.checkBox.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
+            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                notes.isTaskCompleted=isChecked
+                itemClickListener.onUpdate(notes)
+
+                Log.d("CHEC",""+notes.isTaskCompleted)
             }
 
         })
@@ -43,9 +57,9 @@ class NotesAdapter(val list: List<Notes>, val itemClickListener: ItemClickListen
     }
 
    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var textView_ttle: TextView=itemView.findViewById(R.id.tv_vttle)
-        var textView_desc: TextView=itemView.findViewById(R.id.tv_vdesc)
-
+        val textView_ttle: TextView=itemView.findViewById(R.id.tv_vttle)
+        val textView_desc: TextView=itemView.findViewById(R.id.tv_vdesc)
+        val checkBox : CheckBox=itemView.findViewById(R.id.checbox1)
 
     }
 
