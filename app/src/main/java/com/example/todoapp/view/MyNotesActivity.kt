@@ -127,6 +127,7 @@ class MyNotesActivity : AppCompatActivity() {
         val notesApp= applicationContext as NotesApp
         val notesDao=notesApp.getNotesDb().notesDao()
         notesDao.insert(notes)
+        Log.d("DB", notesDao.getAll().size.toString())
     }
 
     private fun setRecylervw() { //nterface
@@ -154,6 +155,21 @@ class MyNotesActivity : AppCompatActivity() {
         linearLayoutManager.orientation = RecyclerView.VERTICAL
         recyclerViewnotes.layoutManager = linearLayoutManager
         recyclerViewnotes.adapter = notesAdapter
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==ADD_NOTES_CODE){
+            val title =data?.getStringExtra(AppConstants.TITLE)
+            val desc =data?.getStringExtra(AppConstants.DESC)
+            val imagpath=data?.getStringExtra(AppConstants.IMGPATH)
+            val notes=Notes(title=title!!,desc=desc!!,imagePath = imagpath!!)
+            addNotesToDb(notes)
+            notesArrayList.add(notes)
+            recyclerViewnotes.adapter?.notifyItemChanged(notesArrayList.size-1)
+
+            //Log.d("DB","")
+        }
     }
 
 }

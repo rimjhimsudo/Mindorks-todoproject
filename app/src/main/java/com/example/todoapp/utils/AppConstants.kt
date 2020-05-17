@@ -7,4 +7,6 @@ object AppConstants {
     var TITLE = "title"
     //@JvmField
     var DESC = "desc"
+
+    var IMGPATH="image_path"
 }

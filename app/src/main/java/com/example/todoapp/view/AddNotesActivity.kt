@@ -20,6 +20,7 @@ import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.example.todoapp.BuildConfig
 import com.example.todoapp.R
+import com.example.todoapp.utils.AppConstants
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -43,6 +44,17 @@ class AddNotesActivity : AppCompatActivity() {
     }
 
     private fun clicklisteners() {
+        btn_submitnote.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val intent=Intent()
+                intent.putExtra(AppConstants.TITLE,et_title.text.toString())
+                intent.putExtra(AppConstants.DESC,et_desc.text.toString())
+                intent.putExtra(AppConstants.IMGPATH,picture_path)
+                setResult(Activity.RESULT_OK,intent)
+                finish()
+            }
+
+        })
         imagevw_addnotes.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 if (checAndReqPermssn()){
@@ -106,8 +118,9 @@ class AddNotesActivity : AppCompatActivity() {
                     picture_path=photofile.absolutePath
                     Log.d("TAGPATHPIC",""+picture_path)
                     takepictureintent.putExtra(MediaStore.EXTRA_OUTPUT,photoURI)
-                    startActivityForResult(intent,REQUEST_CODE_CAMERA)
+                    startActivityForResult(takepictureintent,REQUEST_CODE_CAMERA)
                 }
+                dialog.hide()
             }
 
         })

@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.CompoundButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.todoapp.R
 import com.example.todoapp.clicklisteners.ItemClickListener
 import com.example.todoapp.db.Notes
@@ -33,7 +35,7 @@ class NotesAdapter(val list: List<Notes>, val itemClickListener: ItemClickListen
         Log.d("TAGVAL", "ttle$ttle")
         Log.d("TAGVAL", "ttle$desc")
         holder.textView_desc.text = desc
-
+        Glide.with(holder.itemView).load(notes.imagePath).into(holder.imageView)
         holder.itemView.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 itemClickListener.OnClick(notes)
@@ -60,6 +62,7 @@ class NotesAdapter(val list: List<Notes>, val itemClickListener: ItemClickListen
         val textView_ttle: TextView=itemView.findViewById(R.id.tv_vttle)
         val textView_desc: TextView=itemView.findViewById(R.id.tv_vdesc)
         val checkBox : CheckBox=itemView.findViewById(R.id.checbox1)
+        val  imageView : ImageView =itemView.findViewById(R.id.imgvwpic)
 
     }
 
