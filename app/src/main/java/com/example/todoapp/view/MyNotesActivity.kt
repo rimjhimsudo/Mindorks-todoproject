@@ -16,6 +16,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.example.todoapp.NotesApp
 import com.example.todoapp.utils.AppConstants
 import com.example.todoapp.utils.AppConstants.DESC
@@ -26,8 +29,10 @@ import com.example.todoapp.R
 import com.example.todoapp.adapter.NotesAdapter
 import com.example.todoapp.clicklisteners.ItemClickListener
 import com.example.todoapp.db.Notes
+import com.example.todoapp.workmanager.MyWorker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MyNotesActivity : AppCompatActivity() {
     val ADD_NOTES_CODE=100
@@ -51,6 +56,7 @@ class MyNotesActivity : AppCompatActivity() {
         getintentdata()
         setRecylervw()
         getDatafromDb()
+        setupWorkerManager()
         //acton bar
         supportActionBar?.title = fullname //can take null value tooo now 
         //floatng button
@@ -64,6 +70,20 @@ class MyNotesActivity : AppCompatActivity() {
 
         })
         // setRecylervw();
+    }
+
+    private fun setupWorkerManager() {
+        val constraint=Constraints.Builder()
+                .build()
+        val request=PeriodicWorkRequest.Builder(MyWorker::class.java,15,TimeUnit.MINUTES)
+                                        .setConstraints(constraint)
+                                         .build()
+        WorkManager.getInstance().enqueue(request)
+        //also we can queue trequest liiiiiikkke
+
+                //.setRequiresCharging(true)
+                //.setRequiresBatteryNotLow(true)
+       // WorkManager.getInstance().beginWith(request).then(djjdd).enqueue
     }
 
     private fun getDatafromDb() {
