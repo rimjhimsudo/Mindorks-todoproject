@@ -21,7 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".onboarding.OnBoardingActivity">
+        <activity android:name=".onboarding.OnBoardingActivity" android:theme="@style/NoToolbar">
 
         </activity>
         <activity android:name=".view.BlogActivity" />

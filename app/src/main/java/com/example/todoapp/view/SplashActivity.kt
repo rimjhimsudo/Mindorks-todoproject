@@ -10,6 +10,8 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -27,8 +29,12 @@ class SplashActivity : AppCompatActivity() {
 
     lateinit  var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
        /* if (!checkPermission()) {
             openActivity();
@@ -62,60 +68,7 @@ class SplashActivity : AppCompatActivity() {
                 })
     }
 
-    /* private fun checkPermission(): Boolean {
-         return (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                 && ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-     }
 
-     private fun requestPermissionAndContinue() {
-         if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                 && ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-             if (ActivityCompat.shouldShowRequestPermissionRationale(this, WRITE_EXTERNAL_STORAGE)
-                     && ActivityCompat.shouldShowRequestPermissionRationale(this, READ_EXTERNAL_STORAGE)) {
-                 val alertBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
-                 alertBuilder.setCancelable(true)
-                 alertBuilder.setTitle("Permission required")
-                 alertBuilder.setMessage("Permission required")
-                 alertBuilder.setPositiveButton("yes", DialogInterface.OnClickListener { dialog, which ->
-                     ActivityCompat.requestPermissions(this@SplashActivity, arrayOf(WRITE_EXTERNAL_STORAGE
-                             , READ_EXTERNAL_STORAGE), PERMISSION_REQUEST_CODE)
-                 })
-                 val alert: AlertDialog = alertBuilder.create()
-                 alert.show()
-                 Log.e("", "permission denied, show dialog")
-             } else {
-                 ActivityCompat.requestPermissions(this@SplashActivity, arrayOf(WRITE_EXTERNAL_STORAGE,
-                         READ_EXTERNAL_STORAGE), PERMISSION_REQUEST_CODE)
-             }
-         } else {
-             openActivity()
-         }
-     }
-
-     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
-         if (requestCode == PERMISSION_REQUEST_CODE) {
-             if (permissions.size > 0 && grantResults.size > 0) {
-                 var flag = true
-                 for (i in grantResults.indices) {
-                     if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                         flag = false
-                     }
-                 }
-                 if (flag) {
-                     openActivity()
-                 } else {
-                     finish()
-                 }
-             } else {
-                 finish()
-             }
-         } else {
-             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-         }
-     }
-
-     private fun openActivity() { //add your further process after giving permission or to download images from remote server.
-     }*/
 
     private fun setupsharedpref() {
         sharedPreferences = getSharedPreferences(PrefConstants.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
@@ -143,5 +96,6 @@ class SplashActivity : AppCompatActivity() {
             }
 
         }
+        finish()
     }
 }

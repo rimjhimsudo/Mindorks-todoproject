@@ -38,7 +38,8 @@ import java.util.concurrent.TimeUnit
 
 class MyNotesActivity : AppCompatActivity() {
     val ADD_NOTES_CODE=100
-     var fullname: String?= null
+    var fullname: String? = null
+
     lateinit var btn_float: FloatingActionButton
     lateinit var viewtitle: TextView
     lateinit var viewdesc: TextView
@@ -96,7 +97,7 @@ class MyNotesActivity : AppCompatActivity() {
         notesArrayList.addAll(listofNotes)
     }
 
-    private fun getintentdata() {
+    private fun getintentdata() { //errorhereray
 
         val intent = intent
         // fullname = intent.getStringExtra(AppConstants.FULLNAME)
@@ -105,9 +106,10 @@ class MyNotesActivity : AppCompatActivity() {
         }
 
         //error wthout toString
-        if (fullname?.isEmpty()!!) {
-            fullname = sharedPreferences.getString(PrefConstants.FULLNAME, "").toString()
+        if (fullname.isNullOrEmpty()) {
+            fullname = sharedPreferences.getString(PrefConstants.FULLNAME, "")
         }
+
     }
 
     private fun bindview() {
@@ -182,17 +184,18 @@ class MyNotesActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==ADD_NOTES_CODE){
-            val title =data?.getStringExtra(AppConstants.TITLE)
-            val desc =data?.getStringExtra(AppConstants.DESC)
-            val imagpath=data?.getStringExtra(AppConstants.IMGPATH)
-            val notes=Notes(title=title!!,desc=desc!!,imagePath = imagpath!!)
-            addNotesToDb(notes)
-            notesArrayList.add(notes)
-            recyclerViewnotes.adapter?.notifyItemChanged(notesArrayList.size-1)
+            if(requestCode==ADD_NOTES_CODE && requestCode!= Activity.RESULT_CANCELED && data!=null){
+                val title =data?.getStringExtra(AppConstants.TITLE)
+                val desc =data?.getStringExtra(AppConstants.DESC)
+                val imagpath=data?.getStringExtra(AppConstants.IMGPATH)
+                val notes=Notes(title=title!!,desc=desc!!,imagePath = imagpath!!)
+                addNotesToDb(notes)
+                notesArrayList.add(notes)
+                recyclerViewnotes.adapter?.notifyItemChanged(notesArrayList.size-1)
 
-            //Log.d("DB","")
-        }
+                //Log.d("DB","")
+            }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
