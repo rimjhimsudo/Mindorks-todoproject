@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -50,12 +51,13 @@ class LoginActivity : AppCompatActivity() {
                 val fullname = et_fullname.text.toString()
                 val username = et_username.text.toString()
                 if (fullname.isNotEmpty() && username.isNotEmpty()) {
-                    saveLoginstatus()
-                    saveFullname(fullname)
+
                     val intent = Intent(this@LoginActivity, MyNotesActivity::class.java)
                     intent.putExtra(AppConstants.FULLNAME, fullname)
                     startActivity(intent)
-                    finish()
+                    saveFullname(fullname)
+                    saveLoginstatus()
+                    Log.d("TAGLOGN",""+PrefConstants.IS_LOGGED_IN)
                 } else {
 
                     Toast.makeText(this@LoginActivity, "fullname and username cant be empty", Toast.LENGTH_LONG).show()
@@ -69,12 +71,13 @@ class LoginActivity : AppCompatActivity() {
     fun setupsharedpref() {
         sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
         //prvatemode specifically tells prefernece that it can be acceseed b our own app not others.
+
     }
 
     fun saveLoginstatus() { //open regster
         editor = sharedPreferences.edit()
         //we write
-        editor.putBoolean("IS_LOGGED_IN", true) //key ="is logged in"
+        editor.putBoolean(PrefConstants.IS_LOGGED_IN, true) //key ="is logged in"
         //we save
         editor.apply()
     }

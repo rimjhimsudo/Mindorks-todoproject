@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit
 
 class MyNotesActivity : AppCompatActivity() {
     val ADD_NOTES_CODE=100
-    lateinit var fullname: String
+     var fullname: String?= null
     lateinit var btn_float: FloatingActionButton
     lateinit var viewtitle: TextView
     lateinit var viewdesc: TextView
@@ -99,12 +99,13 @@ class MyNotesActivity : AppCompatActivity() {
     private fun getintentdata() {
 
         val intent = intent
+        // fullname = intent.getStringExtra(AppConstants.FULLNAME)
         if (intent.hasExtra(AppConstants.FULLNAME)){
-            fullname = intent.getStringExtra(AppConstants.FULLNAME).toString()
+            fullname = intent.getStringExtra(AppConstants.FULLNAME)
         }
 
         //error wthout toString
-        if (fullname.isEmpty()) {
+        if (fullname?.isEmpty()!!) {
             fullname = sharedPreferences.getString(PrefConstants.FULLNAME, "").toString()
         }
     }

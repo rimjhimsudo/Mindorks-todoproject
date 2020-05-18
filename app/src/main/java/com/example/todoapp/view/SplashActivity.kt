@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.todoapp.R
+import com.example.todoapp.onboarding.OnBoardingActivity
 import com.example.todoapp.utils.PrefConstants
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
@@ -126,12 +127,21 @@ class SplashActivity : AppCompatActivity() {
         //check some data locally
         ///term - Share preferences
         val isLoggedin = sharedPreferences.getBoolean(PrefConstants.IS_LOGGED_IN, false)
+        val isBoardgSuccess= sharedPreferences.getBoolean(PrefConstants.ON_BOARDED_SUCCESS,false)
+
         if (isLoggedin) { //note activiity
-            val intent = Intent(this@SplashActivity, MyNotesActivity::class.java)
-            startActivity(intent)
+            val intent1 = Intent(this@SplashActivity, MyNotesActivity::class.java)
+            startActivity(intent1)
         } else { //logn actvity
-            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-            startActivity(intent)
+            if (isBoardgSuccess){
+                val intent = Intent(this@SplashActivity , LoginActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                val intent = Intent(this@SplashActivity, OnBoardingActivity::class.java)
+                startActivity(intent)
+            }
+
         }
     }
 }
